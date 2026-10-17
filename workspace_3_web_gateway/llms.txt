@@ -1,0 +1,17 @@
+# Voxel Showcase Web Gateway
+
+> Инфраструктурный пакет и Frontend-шлюз (Docker + Nginx) для обеспечения бесшовного доступа (Zero-Install) к воксельным Участкам через Wasm в браузере.
+
+## 1. System Orientation & Agent Rules
+- [PROJECT.md](PROJECT.md): Миссия Zero-Install витрины, маршрутизация трафика и изоляция от игровой логики. Читать первым.
+- [AGENTS.md](AGENTS.md): Запрет на проброс внутренних портов наружу, запрет на JS-фреймворки, проверка docker-compose и Nginx конфигураций.
+
+## 2. External Protocol Contracts (Read-Only Symlinks)
+- [shared_contracts/01-network-transport.md](shared_contracts/01-network-transport.md): Спецификация TCP/UDP портов.
+
+## 3. Implementation Specifications (Internal)
+- [01-docker-topology.md](specs/01-docker-topology.md): Оркестрация docker-compose, внутренняя сеть voxel_net, изоляция портов и Read-Only тома.
+- [02-websockify-bridge.md](specs/02-websockify-bridge.md): Микросервис трансляции трафика (WS -> UDP).
+- [03-nginx-delivery.md](specs/03-nginx-delivery.md): Reverse Proxy, агрессивное кэширование Wasm/Data, MIME-типы и Gzip/Brotli сжатие.
+- [04-wasm-bootstrapper.md](specs/04-wasm-bootstrapper.md): JS-логика bootstrapper.js, извлечение ?plot=X, генерация Guest_P<ID>_Hash и инжект в Module.arguments.
+- [05-gateway-ux-and-i18n.md](specs/05-gateway-ux-and-i18n.md): Экран загрузки, автоопределение navigator.language и безопасный фоллбэк без WebGL.

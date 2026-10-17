@@ -1,0 +1,12 @@
+# Voxel Metaverse: Shared Protocol Contracts
+
+> Центральный репозиторий контрактов, описывающий единый язык (Interface) взаимодействия между Клиентом (Python SDK) и Сервером (Luanti). Не содержит исполняемого кода. Изменения здесь транслируются во все остальные модули системы (Read-Only Symlinks).
+
+## 1. System Orientation & Agent Rules
+- [PROJECT.md](PROJECT.md): Глобальный бизнес-контекст, глоссарий терминов и описание MVP (Stage 1). Читать первым.
+- [AGENTS.md](AGENTS.md): Красные линии для ИИ-агентов, правила обратной совместимости и табу на изменение типов.
+
+## 2. Protocol Specifications (The Source of Truth)
+- [01-network-transport.md](specs/01-network-transport.md): Спецификация TCP-порта 4711, правила NDJSON-фрейминга (\n) и схема сессий.
+- [02-geometry-and-physics.md](specs/02-geometry-and-physics.md): Геометрия участка (32x32x64), User Space [-15..15] и Network Space [0..31].
+- [03-commands-registry.md](specs/03-commands-registry.md): Реестр действий (step, wipe, bulk_set_nodes), алиасы материалов и машинные коды ошибок.

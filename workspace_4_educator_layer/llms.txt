@@ -1,0 +1,16 @@
+# Voxel Educator Layer & Content Engine
+
+> Педагогический модуль и генератор учебного контента. Отвечает за трансляцию технических возможностей Python SDK в дидактически выверенные уроки для детей 11–14 лет.
+
+## 1. System Orientation & Agent Rules
+- [PROJECT.md](PROJECT.md): Роль AI-Методиста, педагогические инварианты (спиральное обучение, Fail-Fast) и приоритет простоты. Читать первым.
+- [AGENTS.md](AGENTS.md): Запрет на модификацию исходников SDK, правила AST-валидации зон кода, табу на перевод алиасов материалов.
+
+## 2. External Dependencies (Read-Only Symlinks)
+- [shared_contracts/03-commands-registry.md](shared_contracts/03-commands-registry.md): Справочник алиасов блоков.
+
+## 3. Implementation Specifications (Internal)
+- [01-task-template-contract.md](specs/01-task-template-contract.md): Правила зонирования файлов (Setup Zone vs Student Zone), структура # --- НАЧАЛО КОДА УЧЕНИКА ---.
+- [02-mvp-curriculum.md](specs/02-mvp-curriculum.md): Спецификация трех базовых уроков (task_01_lines, task_02_loops, task_03_labyrinth).
+- [03-admin-tooling.md](specs/03-admin-tooling.md): Спецификация ChallengeBuilder и мгновенная генерация полигонов.
+- [04-content-i18n.md](specs/04-content-i18n.md): Локализация скриптов (папки en/, ru/). Строгий запрет на перевод синтаксиса Python.

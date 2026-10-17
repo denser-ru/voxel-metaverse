@@ -1,0 +1,19 @@
+# Voxel Turtle Client SDK
+
+> Автономный клиентский SDK на чистом Python 3.10+ для управления воксельным роботом-черепашкой в 3D-пространстве через протокол NDJSON TCP.
+
+## 1. System Orientation & Agent Rules
+- [PROJECT.md](PROJECT.md): Миссия SDK, фокус на детскую аудиторию 11-14 лет, концепция Zero-Dependency. Читать первым.
+- [AGENTS.md](AGENTS.md): Запрет на импорты сторонних библиотек, политика Fail-Fast, запуск тестов через unittest и mock-сервер.
+
+## 2. External Protocol Contracts (Read-Only Symlinks)
+- [shared_contracts/01-network-transport.md](shared_contracts/01-network-transport.md)
+- [shared_contracts/02-geometry-and-physics.md](shared_contracts/02-geometry-and-physics.md)
+- [shared_contracts/03-commands-registry.md](shared_contracts/03-commands-registry.md)
+
+## 3. Implementation Specifications (Internal)
+- [01-network-client.md](specs/01-network-client.md): Реализация transport.py, буферизация TCP, таймауты 5.0с, SHA-256 хэширование PIN.
+- [02-coordinate-math.md](specs/02-coordinate-math.md): Реализация math_engine.py, виртуальный сдвиг (+15), кинематика и heading (0..3).
+- [03-turtle-public-api.md](specs/03-turtle-public-api.md): Класс Turtle, методы 2D/3D движения, Atomic Stepping, сенсоры и AdminBuilder.
+- [04-error-and-i18n.md](specs/04-error-and-i18n.md): Локализация i18n.py, иерархия исключений VoxelTurtleError.
+- [05-mock-and-testing.md](specs/05-mock-and-testing.md): Локальный Mock-сервер на socketserver и сценарии интеграционных тестов.

@@ -1,0 +1,21 @@
+# Voxel Bot Simulation Node
+
+> Высокопроизводительный серверный мод для воксельного движка Luanti (C++/LuaJIT). Отвечает за прием команд по TCP, расчет пространственной геометрии, Time Slicing и In-Memory Delta Rollback.
+
+## 1. System Orientation & Agent Rules
+- [PROJECT.md](PROJECT.md): Миссия серверного плагина, концепция безлаговой песочницы (Zero-Lag Sandbox) и офлайн-витрины. Читать первым.
+- [AGENTS.md](AGENTS.md): Запрет на блокирующий I/O, обязательное использование pcall, запуск luacheck.
+
+## 2. External Protocol Contracts (Read-Only Symlinks)
+- [shared_contracts/01-network-transport.md](shared_contracts/01-network-transport.md)
+- [shared_contracts/02-geometry-and-physics.md](shared_contracts/02-geometry-and-physics.md)
+- [shared_contracts/03-commands-registry.md](shared_contracts/03-commands-registry.md)
+
+## 3. Implementation Specifications (Internal)
+- [01-engine-lifecycle.md](specs/01-engine-lifecycle.md): Точка входа init.lua, secure.trusted_mods и хук globalstep.
+- [02-network-ingress.md](specs/02-network-ingress.md): Неблокирующий TCP-сервер socket_server.lua, pcall-парсинг, TCP Backpressure.
+- [03-plot-geometry.md](specs/03-plot-geometry.md): Математика сетки plot_manager.lua, валидация [0..31], невидимые барьеры voxel_bot:barrier.
+- [04-entity-and-physics.md](specs/04-entity-and-physics.md): Реализация робота как Entity, установка блоков "позади", детекция коллизий.
+- [05-safety-guardrails.md](specs/05-safety-guardrails.md): Очереди команд (10 cmd/tick), Time Slicing для bulk_set_nodes (500 блоков).
+- [06-demo-state-machine.md](specs/06-demo-state-machine.md): Конечный автомат витрины, запись "пленки", откат через modified_blocks.
+- [07-auth-and-guests.md](specs/07-auth-and-guests.md): Проверка pin_hash через Mod Storage, хуки Guest_P<ID>, режим Spectator.
