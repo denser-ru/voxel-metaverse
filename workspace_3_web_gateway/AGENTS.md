@@ -8,6 +8,7 @@ provides_context:
   - "Network Security Taboos"
   - "Frontend Constraints"
   - "Definition of Done (DoD)"
+  - "Git Governance & Embedded PR Template"
 verification_logic: "agent_prompt_injection"
 ---
 
@@ -15,6 +16,54 @@ verification_logic: "agent_prompt_injection"
 
 > **ВНИМАНИЕ, ИИ-АГЕНТ!** 
 > Этот документ определяет правила твоей работы в репозитории `web-gateway`. Ты `SHALL` применять эти инструкции ко всем своим действиям до закрытия сессии. Твоя задача — построить непробиваемую, кэшированную инфраструктуру доставки и ультра-быстрый веб-интерфейс без лишних зависимостей.
+
+## 0. Git & Antigravity 2.0 Governance (Операционный регламент)
+
+Агент в среде Google Antigravity 2.0 `SHALL` строго соблюдать следующие инварианты управления кодовой базой:
+
+### 0.1. Git Identity (Идентификация бота)
+Перед выполнением любых Git-операций агент `SHALL` применить локальные настройки авторства:
+* `git config user.name "DenserBot [Web Gateway]"`
+* `git config user.email "ai.denser.ru@gmail.com"`
+
+### 0.2. Branching Constraints (Ветвление)
+* **Base Branch:** Агент `SHALL` создавать рабочие ветки строго от актуальной ветки `dev`.
+* **Branch Naming:** Имя ветки `SHALL` строго следовать маске: `agent/ws3-gateway/<type>-<short-description>`.
+* **Prohibited Push:** Агент `SHALL NOT` пушить напрямую в ветки `main` или `dev`.
+
+### 0.3. Pull Request Protocol (Сдача работы)
+* **Target Branch:** Целевой веткой любого Pull Request (Base Branch) ВСЕГДА `SHALL` являться ветка `dev`. Агент `SHALL NOT` открывать PR в ветку `main`.
+* **Self-Contained PR Form:** Агент `SHALL` генерировать описание Pull Request строго по следующей встроенной форме (без обращения к файлам за пределами своей рабочей директории):
+
+```markdown
+### 🤖 Antigravity Agent Pull Request Report
+
+* **Workspace:** `workspace_3_web_gateway`
+* **Agent Role:** `DenserBot [Web Gateway]`
+* **Target Spec:** `specs/<УКАЖИ_ИМЯ_СПЕЦИФИКАЦИИ.md>`
+* **Model Version:** `<УКАЖИ_МОДЕЛЬ>`
+
+#### 🛠️ Summary of Changes
+- <Кратко перечисли изменения в Docker, Nginx или JS-бутстраппере>
+
+#### 🧪 Verification Output (Docker & Nginx Syntax)
+```text
+<Вставь сюда сырой вывод: docker compose config -q && echo "Docker Compose OK">
+<Вставь сюда сырой вывод проверки конфигурации Nginx>
+```
+
+#### 🛡️ Invariant Compliance Checklist
+- [x] Целевая ветка строго dev (не main)
+- [x] Port Isolation: Игровой порт 30000 UDP и внутренний порт Websockify НЕ выставлены наружу
+- [x] Single Point of Ingress: Наружу выставлен только порт 8080 (TCP)
+- [x] Read-Only Mounts: Конфиги и статика смонтированы с флагом :ro
+- [x] Zero-Framework Frontend: Скрипт bootstrapper.js написан на чистом Vanilla JS (без React/Vue/npm)
+- [x] Wasm MIME Type: В Nginx жестко прописан заголовок application/wasm для .wasm файлов
+```
+
+### 0.4. Antigravity 2.0 Skills & Worktrees (Контекстная гигиена)
+* **Worktree Isolation:** Агент `SHALL` учитывать, что сессия запущена в изолированном каталоге Git Worktree.
+* **Skills on Demand:** Файлы в директории `specs/` выступают как динамические навыки (Skills). Агент `SHALL NOT` загружать все спецификации разом. При работе с Nginx загружается `03-nginx-delivery.md`, при работе с JS — `04-wasm-bootstrapper.md`.
 
 ## 1. Environment & Tech Stack (Рабочая Среда)
 
@@ -51,3 +100,4 @@ verification_logic: "agent_prompt_injection"
 2. Проверка `nginx -t` успешно пройдена.
 3. В `docker-compose.yml` нет директивы `ports:` для UDP-трафика (только для Nginx).
 4. `bootstrapper.js` не содержит `import` из внешних npm-пакетов.
+5. Сформирован отчет для Pull Request по встроенной форме из Раздела 0.3 с таргетом на ветку `dev`.
