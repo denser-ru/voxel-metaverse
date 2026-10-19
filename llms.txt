@@ -1,0 +1,21 @@
+# Voxel Metaverse Project: Master Navigation Index
+
+> Распределенная образовательная 3D-песочница на базе Python SDK и движка Luanti. Архитектура спроектирована по стандартам Spec-Driven Development (2026) для параллельной разработки мультиагентными системами (Google Antigravity 2.0). Репозиторий строго декомпозирован на 5 изолированных рабочих пространств (Bounded Contexts).
+
+## Master Guidelines & Orchestration
+- [README.md](README.md): Главная макро-архитектурная спецификация для людей-инженеров, описание топологии и философия проекта.
+- [AGENTS.md](AGENTS.md): Операционная конституция Центрального Оркестратора, запрет на слепой grep/cat и протокол делегирования задач через .tasks/.
+- [.github/pull_request_template.md](.github/pull_request_template.md): Обязательный шаблон отчета о тестировании и соблюдении DoD при открытии Pull Request.
+
+## Workspace Entry Points (Isolated Subsystems)
+ВАЖНО ДЛЯ ИИ-АГЕНТОВ: Не исследуйте поддиректории рекурсивно. Переходите строго по ссылкам в локальные навигационные индексы:
+
+- [workspace_0_shared_contracts/llms.txt](workspace_0_shared_contracts/llms.txt): Сетевой протокол (NDJSON), порты, математика сдвига координат и реестр команд (Source of Truth).
+- [workspace_1_python_sdk/llms.txt](workspace_1_python_sdk/llms.txt): Клиентская библиотека voxel_turtle (Zero-Dependency Python 3.10+), кинематика и локальный Mock-сервер.
+- [workspace_2_luanti_mod/llms.txt](workspace_2_luanti_mod/llms.txt): Серверный плагин Luanti (LuaJIT), неблокирующий I/O, Time Slicing, невидимые барьеры и In-Memory откат мира.
+- [workspace_3_web_gateway/llms.txt](workspace_3_web_gateway/llms.txt): Инфраструктура развертывания (Docker Compose, Nginx, Websockify прокси WS->UDP и JS-бутстраппер для Wasm).
+- [workspace_4_educator_layer/llms.txt](workspace_4_educator_layer/llms.txt): Учебный контент, шаблоны уроков с разделением зон (Teacher vs Student), мультиязычность и генератор уровней AdminBuilder.
+
+## Engineering Tools & Task Dispatch
+- [tools/pack_context.py](tools/pack_context.py): Автономная утилита для упаковки контекста репозитория в единый XML-файл для анализа в Google AI Studio и Gemini.
+- [.tasks/](.tasks/): Инкубатор задач. Каталог, через который Центральный Оркестратор распределяет баг-репорты и доработки конкретным субагентам.
