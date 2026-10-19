@@ -67,3 +67,4 @@ desktop.ini
 # Temporary test & scratch files
 tests/temp/
 local_scratch/
+ai_context_pack.xml
